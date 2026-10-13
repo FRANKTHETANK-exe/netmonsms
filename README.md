@@ -49,7 +49,7 @@ To create the app password, enable 2-Step Verification, then open your Google Ac
 
 The script connects to `smtp.gmail.com` on port `587` with STARTTLS, matching [Google's SMTP settings](https://knowledge.workspace.google.com/admin/gmail/send-email-from-a-printer-scanner-or-app). It does not implement OAuth.
 
-Start with a regular email inbox as the recipient. SMS requires a working email-to-text gateway: [AT&T ended that service in June 2025](https://www.att.com/support/article/wireless/KM1061254/), and [Verizon is shutting it down by March 31, 2027](https://www.verizon.com/support/vtext-vzwpix-shutdown/). The early examples use `tmomail.net`; [T-Mobile still describes tmomail delivery](https://www.t-mobile.com/support/plans-features/help-with-scams-spam-and-fraud), but delivery with this project is unverified.
+Use a regular email inbox as the recipient. SMS delivery requires an email-to-text gateway supported by the recipient's carrier. Check availability before using a gateway address: [AT&T ended its service in June 2025](https://www.att.com/support/article/wireless/KM1061254/), and [Verizon is shutting it down by March 31, 2027](https://www.verizon.com/support/vtext-vzwpix-shutdown/).
 
 ## Run
 
@@ -67,7 +67,7 @@ sudo python3 networkmonitor.py
 
 The terminal shows scan activity and whether SMTP submission succeeded. Unknown devices are appended to `device_log.txt` with a timestamp and the same details sent in the alert. After a change of calendar day, the next loop sends the collected observations as a summary and clears that list. Stopping the process does not send a final summary.
 
-`Alert sent!` means SMTP submission succeeded; it does not confirm inbox or phone delivery. Alerts include network identifiers, so use a recipient you control. Keep `config.py` and `device_log.txt` private; both are in `.gitignore`.
+`Alert sent!` confirms SMTP submission, not inbox or phone delivery. Alerts include network identifiers, so use a recipient you control. Credentials belong in `config.py`; device observations are stored in `device_log.txt`. Both files are excluded from Git by `.gitignore`.
 
 ## Known limitations
 
@@ -78,4 +78,4 @@ The terminal shows scan activity and whether SMTP submission succeeded. Unknown 
 
 ## Earlier versions
 
-Versions 0.1–0.4 are in [`history/`](history/): an SMTP test, IP-based monitoring, device logging, then alert-call and MAC-parser fixes. Use the top-level script for version 0.5. The early files contain unfinished behavior: 0.1 sends on import, 0.2 has no delay inside its scan loop, and 0.3 has a broken alert call.
+Use the top-level `networkmonitor.py` for version 0.5. [`history/`](history/) contains earlier implementations for reference.
