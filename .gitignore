@@ -1,0 +1,11 @@
+# Local credentials and configuration
+config.py
+.env
+.env.*
+
+# Generated device records and Python cache
+device_log.txt
+*.log
+__pycache__/
+*.py[cod]
+.DS_Store
